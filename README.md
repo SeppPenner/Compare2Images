@@ -18,4 +18,4 @@ http://franzhuber23.blogspot.de/2018/05/c-compare-2-images-compare-two-images.ht
 Change history
 --------------
 
-* **Version 1.0.0.0 (2018-11-24)** : 1.0 release.
+* **Version 1.0.0.0 (2018-05-02)** : 1.0 release.
