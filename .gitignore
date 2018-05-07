@@ -31,7 +31,6 @@ lockfile.lck
 *.lib
 
 # Executables
-*.exe
 *.out
 *.app
 
