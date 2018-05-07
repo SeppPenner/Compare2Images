@@ -1,4 +1,4 @@
-﻿namespace howto_compare_images
+﻿namespace Compare2Images
 {
     partial class Main
     {

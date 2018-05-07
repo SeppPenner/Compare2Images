@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace howto_compare_images
+namespace Compare2Images
 {
     internal static class Program
     {

@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace howto_compare_images
+namespace Compare2Images
 {
     public partial class Main : Form
     {
