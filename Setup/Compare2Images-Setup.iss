@@ -2,12 +2,12 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Compare2Images"
-#define MyAppVersion "1.0.0.0"
+#define MyAppVersion "1.0.0.1"
 #define MyAppPublisher "Hämmer Electronics"
 #define MyAppURL "softwareload24.de.tl"
 #define MyAppExeName "Compare2Images.exe"
 #define MyCopyRight "Copyright (©) Hämmer Electronics"
-#define MyFolderName "F:\TODO\Compare2Images"
+#define MyFolderName "C:\Users\tim\Desktop\Updaten_Snyk\Compare2Images"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
