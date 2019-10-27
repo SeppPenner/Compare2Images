@@ -2,12 +2,12 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Compare2Images"
-#define MyAppVersion "1.0.0.1"
+#define MyAppVersion "1.0.1.0"
 #define MyAppPublisher "Hämmer Electronics"
 #define MyAppURL "softwareload24.de.tl"
 #define MyAppExeName "Compare2Images.exe"
 #define MyCopyRight "Copyright (©) Hämmer Electronics"
-#define MyFolderName "C:\Users\tim\Desktop\Updaten_Snyk\Compare2Images"
+#define MyFolderName "C:\Users\Tim\Documents\Git\C# und VB\Compare2Images"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -23,9 +23,9 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={commonpf}\{#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile={#MyFolderName}\bin\Debug\License.txt
+LicenseFile={#MyFolderName}\bin\Release\License.txt
 OutputDir={#MyFolderName}\Setup
 OutputBaseFilename=Compare2Images-Setup
 SetupIconFile={#MyFolderName}\Compare2Images.ico
@@ -39,8 +39,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "{#MyFolderName}\bin\Debug\Compare2Images.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MyFolderName}\bin\Debug\License.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyFolderName}\bin\Release\Compare2Images.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyFolderName}\bin\Release\License.txt"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
