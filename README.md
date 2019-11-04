@@ -5,7 +5,7 @@ Compare2Images is a project to compare 2 images in C# 4.8.
 [![GitHub issues](https://img.shields.io/github/issues/SeppPenner/Compare2Images.svg)](https://github.com/SeppPenner/Compare2Images/issues)
 [![GitHub forks](https://img.shields.io/github/forks/SeppPenner/Compare2Images.svg)](https://github.com/SeppPenner/Compare2Images/network)
 [![GitHub stars](https://img.shields.io/github/stars/SeppPenner/Compare2Images.svg)](https://github.com/SeppPenner/Compare2Images/stargazers)
-[![GitHub license](https://img.shields.io/badge/license-AGPL-blue.svg)](https://raw.githubusercontent.com/SeppPenner/Compare2Images/master/License.txt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://raw.githubusercontent.com/SeppPenner/Compare2Images/master/License.txt)
 [![Known Vulnerabilities](https://snyk.io/test/github/SeppPenner/Compare2Images/badge.svg)](https://snyk.io/test/github/SeppPenner/Compare2Images)
 
 ## Screenshots from the GUI
