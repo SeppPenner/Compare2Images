@@ -63,7 +63,7 @@
             this.ButtonFile2.Size = new System.Drawing.Size(24, 18);
             this.ButtonFile2.TabIndex = 3;
             this.ButtonFile2.UseVisualStyleBackColor = false;
-            this.ButtonFile2.Click += new System.EventHandler(this.ButtonFile2_Click);
+            this.ButtonFile2.Click += new System.EventHandler(this.ButtonSecondFileClick);
             // 
             // LabelFile2
             // 
@@ -84,7 +84,7 @@
             this.ButtonFile1.Size = new System.Drawing.Size(24, 18);
             this.ButtonFile1.TabIndex = 1;
             this.ButtonFile1.UseVisualStyleBackColor = false;
-            this.ButtonFile1.Click += new System.EventHandler(this.ButtonFile1_Click);
+            this.ButtonFile1.Click += new System.EventHandler(this.ButtonFirstFileClick);
             // 
             // LabelFile1
             // 
@@ -126,7 +126,7 @@
             this.ButtonGo.Size = new System.Drawing.Size(491, 24);
             this.ButtonGo.TabIndex = 4;
             this.ButtonGo.Text = "Go";
-            this.ButtonGo.Click += new System.EventHandler(this.ButtonGo_Click);
+            this.ButtonGo.Click += new System.EventHandler(this.ButtonGoClick);
             // 
             // TableLayoutPanelMain
             // 
