@@ -39,6 +39,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "..\src\Compare2Images\bin\Release\net5.0-windows\Compare2Images.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Compare2Images\bin\Release\net5.0-windows\Compare2Images.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Compare2Images\bin\Release\net5.0-windows\License.txt"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
