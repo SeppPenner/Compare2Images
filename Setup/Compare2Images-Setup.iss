@@ -38,9 +38,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\src\Compare2Images\bin\Release\net5.0-windows\Compare2Images.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Compare2Images\bin\Release\net5.0-windows\Compare2Images.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Compare2Images\bin\Release\net5.0-windows\License.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Compare2Images\bin\publish\*"; DestDir: "{app}\languages\"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
