@@ -1,5 +1,5 @@
 # Compare2Images
-Compare2Images is a project to compare 2 images in .Net 5.0.
+Compare2Images is a project to compare 2 images in C#.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7f5smko34w24nvjd?svg=true)](https://ci.appveyor.com/project/SeppPenner/compare2images)
 [![GitHub issues](https://img.shields.io/github/issues/SeppPenner/Compare2Images.svg)](https://github.com/SeppPenner/Compare2Images/issues)
