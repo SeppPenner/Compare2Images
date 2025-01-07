@@ -102,22 +102,27 @@ public partial class Main : Form
         Application.DoEvents();
 
         // Load the images.
-        var bm1 = (Bitmap)this.Image1.Image;
-        var bm2 = (Bitmap)this.Image2.Image;
+        var bm1 = (Bitmap?)this.Image1.Image;
+        var bm2 = (Bitmap?)this.Image2.Image;
+
+        if (bm1 is null || bm2 is null)
+        {
+            return;
+        }
 
         // Make a difference image.
-        var wid = Math.Min(bm1.Width, bm2.Width);
-        var hgt = Math.Min(bm1.Height, bm2.Height);
-        var bm3 = new Bitmap(wid, hgt);
+        var width = Math.Min(bm1.Width, bm2.Width);
+        var height = Math.Min(bm1.Height, bm2.Height);
+        var bm3 = new Bitmap(width, height);
 
         // Create the difference image.
         var areIdentical = true;
         var equalColor = Color.White;
         var notEqualColor = Color.Red;
 
-        for (var x = 0; x < wid; x++)
+        for (var x = 0; x < width; x++)
         {
-            for (var y = 0; y < hgt; y++)
+            for (var y = 0; y < height; y++)
             {
                 if (bm1.GetPixel(x, y).Equals(bm2.GetPixel(x, y)))
                 {
