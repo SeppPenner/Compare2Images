@@ -154,6 +154,11 @@ The version in the `Changelog.md` has four parts (`1.0.8.0`), the tag has three 
 GitVersion turns the tag into the assembly version and the window title shows it, which is the
 quickest way to check that the released binary really came from the tagged commit.
 
+`build-setup-files.bat` publishes self contained for `win-x64`, so the installer carries the .NET
+runtime and the target machine needs nothing installed. That is why the publish folder holds around
+270 files and 118 MB and the installer is around 35 MB instead of around 2 MB. Do not remove
+`--self-contained true` to make the download smaller.
+
 ## Git
 
 - **Never amend a commit.** No `git commit --amend`, not for a typo in the message, not to add a
