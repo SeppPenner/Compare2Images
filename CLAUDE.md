@@ -41,7 +41,7 @@ Repository root: `README.md` (uppercase, the only user documentation), `Changelo
 dotnet build src/Compare2Images.sln -c Release
 ```
 
-- Single target framework `net9.0-windows`, no multi-targeting. `RuntimeIdentifiers` is `win-x64`.
+- Single target framework `net10.0-windows`, no multi-targeting. `RuntimeIdentifiers` is `win-x64`.
 - All build properties live directly in `Compare2Images.csproj`. There is **no**
   `Directory.Build.props` in this repository.
 - `TreatWarningsAsErrors` is enabled, so every warning breaks the build, NuGet warnings (`NU****`)
