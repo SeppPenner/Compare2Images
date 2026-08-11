@@ -18,8 +18,8 @@ Layout inside `src/Compare2Images`:
 - `Program.cs`: `[STAThread] Main`, enables visual styles and runs the `Main` form. Nothing else.
 - `Main.cs`: the whole application logic. `LoadTitleAndDescription` writes product name and version
   into the window title, `ButtonFirstFileClick` and `ButtonSecondFileClick` open a file and show
-  it, `ButtonGoClick` runs the comparison. The private helpers do one thing each, keep new logic in
-  that shape.
+  it, `LoadImage` reads a file into an independent bitmap, `ButtonGoClick` runs the comparison. The
+  private helpers do one thing each, keep new logic in that shape.
 - `Main.Designer.cs` plus `Main.resx`: designer generated form layout and the button images.
 - `GlobalUsings.cs`: exists, but is empty apart from the `#pragma warning disable IDE0065` pair.
 - `License.txt`: copied to the output directory with `CopyToOutputDirectory=Always`, the installer
@@ -94,6 +94,13 @@ Do not silently "clean up" these, they are existing behaviour:
   `components` and its own bracing style, all of which contradicts the editorconfig. Designer files
   are exempt from the IDE analyzers, which is why the build stays clean. Do not reformat it by
   hand, Visual Studio would write it back.
+- **A bitmap created from a file path locks that file.** `LoadImage` therefore opens the file into
+  a temporary bitmap, copies it with `new Bitmap(temporaryImage)` and disposes the temporary one.
+  `Image.Clone()` does **not** work here: the clone keeps the file handle alive, so the selected
+  file stays locked for the whole session and cannot be overwritten by an image editor, which is
+  exactly what this tool is used for. Verified by experiment, not taken from documentation. The
+  copy constructor also converts to `Format32bppArgb`, which is harmless because only `GetPixel` is
+  used on the result.
 - **The comparison is `GetPixel` and `SetPixel` in a nested loop.** That is one managed call per
   pixel and gets slow for large images, roughly a second per megapixel. It is kept because it is
   what the referenced blog article shows and it is the readable version. `LockBits` would be the
@@ -107,10 +114,10 @@ Do not silently "clean up" these, they are existing behaviour:
   `face1.bmp` and `face2.bmp` have no `CopyToOutputDirectory` and are not embedded, they are simply
   tracked next to the code so that there is something to compare. Only `License.txt` is copied to
   the output.
-- **The result texts are hardcoded English.** `"The images are identical"` and
-  `"The images are different"` live directly in `Main.cs`. Unlike the sibling repositories this
-  project has no language manager and no `languages` folder, so do not introduce `GetWord` calls
-  here.
+- **The result texts are hardcoded English.** `"The images are identical"`,
+  `"The images are different"` and the `"Error"` title of the message box live directly in
+  `Main.cs`. Unlike the sibling repositories this project has no language manager and no
+  `languages` folder, so do not introduce `GetWord` calls here.
 - **The installer is tracked although `.gitignore` ignores `*.exe`.** `Setup/Compare2Images-Setup.exe`
   is in the repository and every release adds a new copy of it to the history. It has to be staged
   with `git add -f`.
@@ -121,6 +128,10 @@ Do not silently "clean up" these, they are existing behaviour:
 - **`.gitattributes` sets `* text=auto`** and every rule of the Visual Studio template below it is
   commented out. The tracked `*.bmp`, `*.ico`, `*.PNG` and `*.exe` files are recognized as binary by
   git's own heuristic. Any file where that heuristic could go wrong needs its own explicit rule.
+- **`Setup/Compare2Images-Setup.iss` is UTF-8 with a BOM.** Inno Setup 6 only reads a script as
+  UTF-8 when the BOM is there, otherwise it falls back to the system code page. On a machine with
+  code page 1252 that happens to give the right result, everywhere else `Hämmer Electronics` turns
+  into `HÃ¤mmer Electronics` in the installer. Keep the BOM and keep CRLF when editing that file.
 
 ## Releasing
 
