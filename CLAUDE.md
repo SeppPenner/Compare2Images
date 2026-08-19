@@ -5,7 +5,9 @@
 Compare2Images is a small Windows Forms application that compares two image files pixel by pixel
 and shows a difference image: white where both images have the same color, red where they differ.
 It is a desktop program, **not** a library and **not** a NuGet package: no `GeneratePackageOnBuild`,
-no push script. It ships as an Inno Setup installer that is committed into this repository.
+no push script. It ships as an Inno Setup installer that is attached to the GitHub release of the
+version tag. Up to and including 1.0.8 the installer was committed into `Setup/` instead, which is
+why the git history carries one copy per release.
 
 One solution `src/Compare2Images.sln` with exactly one project:
 
@@ -27,9 +29,9 @@ Layout inside `src/Compare2Images`:
 - `Compare2Images.ico`, `dots14x10.bmp`, `face1.bmp`, `face2.bmp`.
 
 `Setup` holds the installer: `Compare2Images-Setup.iss` (Inno Setup script),
-`build-setup-files.bat` (cleans `bin` and `obj`, publishes, deletes the `*.pdb`) and the committed
-`Compare2Images-Setup.exe`. The batch file does **not** compile the setup, `ISCC.exe` is run
-separately.
+`build-setup-files.bat` (cleans `bin` and `obj`, publishes, deletes the `*.pdb`) and the built
+`Compare2Images-Setup.exe`, which is not tracked. The batch file does **not** compile the setup,
+`ISCC.exe` is run separately.
 
 Repository root: `README.md` (uppercase, the only user documentation), `Changelog.md`,
 `License.txt` (MIT), `Screenshot.PNG` and `.gitattributes`. There is no `Updating.md`, no
@@ -118,16 +120,16 @@ Do not silently "clean up" these, they are existing behaviour:
   `"The images are different"` and the `"Error"` title of the message box live directly in
   `Main.cs`. Unlike the sibling repositories this project has no language manager and no
   `languages` folder, so do not introduce `GetWord` calls here.
-- **The installer is tracked although `.gitignore` ignores `*.exe`.** `Setup/Compare2Images-Setup.exe`
-  is in the repository and every release adds a new copy of it to the history. It has to be staged
-  with `git add -f`.
+- **The installer is not tracked, it hangs on the release.** `Setup/Compare2Images-Setup.exe` was in
+  the repository up to and including 1.0.8, staged with `git add -f` against the `*.exe` rule, and
+  every release added a new copy to the history. Do not add it back.
 - **AppVeyor badge without CI in the repository.** `README.md` links an AppVeyor build that is
   configured outside of this repository. There is no pipeline file here.
 - **`src/Compare2Images.sln.DotSettings`** is tracked and holds nothing but a ReSharper user
   dictionary with the single word `H_00E4mmer`. Leave it alone.
 - **`.gitattributes` sets `* text=auto`** and every rule of the Visual Studio template below it is
-  commented out. The tracked `*.bmp`, `*.ico`, `*.PNG` and `*.exe` files are recognized as binary by
-  git's own heuristic. Any file where that heuristic could go wrong needs its own explicit rule.
+  commented out. The tracked `*.bmp`, `*.ico` and `*.PNG` files are recognized as binary by git's own
+  heuristic. Any file where that heuristic could go wrong needs its own explicit rule.
 - **`Setup/Compare2Images-Setup.iss` is UTF-8 with a BOM.** Inno Setup 6 only reads a script as
   UTF-8 when the BOM is there, otherwise it falls back to the system code page. On a machine with
   code page 1252 that happens to give the right result, everywhere else `Hämmer Electronics` turns
@@ -147,8 +149,10 @@ Do not silently "clean up" these, they are existing behaviour:
    tag would burn a prerelease version such as `1.0.8-3+Branch.master.Sha...` into the shipped
    executable. The history shows the same order: tag `1.0.7` sits on `ccb6880`, the setup commit
    `53329d2` comes after it.
-7. Commit the new `Setup/Compare2Images-Setup.exe` with `git add -f`, message `Updated setup.`.
-8. Push the commits and the tag.
+7. Push the commits and the tag.
+8. Attach `Setup/Compare2Images-Setup.exe` to the GitHub release of that tag. **Never commit the
+   installer.** `Setup/` is the `OutputDir` of the Inno Setup script, so the file lands there during
+   the build and `.gitignore` covers it afterwards.
 
 The version in the `Changelog.md` has four parts (`1.0.8.0`), the tag has three (`1.0.8`).
 GitVersion turns the tag into the assembly version and the window title shows it, which is the
@@ -158,6 +162,22 @@ quickest way to check that the released binary really came from the tagged commi
 runtime and the target machine needs nothing installed. That is why the publish folder holds around
 270 files and 118 MB and the installer is around 35 MB instead of around 2 MB. Do not remove
 `--self-contained true` to make the download smaller.
+
+For step 8 there is no `gh` on this machine. The GitHub API does the job, with the token that
+`git push` already uses, so nothing has to be stored anywhere:
+
+```bash
+c=$(printf "protocol=https\nhost=github.com\n\n" | git credential fill)
+tok=$(printf "%s" "$c" | grep '^password=' | cut -d= -f2-)
+id=$(curl -s -X POST -H "Authorization: Bearer $tok" \
+  https://api.github.com/repos/SeppPenner/Compare2Images/releases \
+  -d '{"tag_name":"1.0.9","name":"1.0.9"}' | grep -m1 '"id"' | tr -dc 0-9)
+curl -s -X POST -H "Authorization: Bearer $tok" -H "Content-Type: application/octet-stream" \
+  --data-binary @Setup/Compare2Images-Setup.exe \
+  "https://uploads.github.com/repos/SeppPenner/Compare2Images/releases/$id/assets?name=Compare2Images-Setup.exe"
+```
+
+Never print that token, and never write it into a file.
 
 ## Git
 
